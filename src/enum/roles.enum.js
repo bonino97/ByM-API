@@ -1,0 +1,4 @@
+exports.ROLES_ENUM = {
+    SUPER_ADMIN: 'SUPER_ADMIN',
+    EMPLOYEE: 'EMPLOYEE',
+};
