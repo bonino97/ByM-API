@@ -6,7 +6,6 @@ const clientSchema = new Schema({
     phone: String,
     email: String,
     address: String,
-
     orders: [{ type: Schema.Types.ObjectId, ref: 'Order' }]
 }, {
     timestamps: true

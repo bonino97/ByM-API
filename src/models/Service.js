@@ -3,7 +3,7 @@ const { Schema } = mongoose;
 
 const serviceSchema = new Schema({
     model: String,
-    seller: Schema.Types.ObjectId, ref: 'User',
+    seller: {type: Schema.Types.ObjectId, ref: 'User'},
     patent: String,
     address: String,
     oilFilter:String,
@@ -11,6 +11,7 @@ const serviceSchema = new Schema({
     fuelFilter: String,
     oilType: String,
     orders: [{ type: Schema.Types.ObjectId, ref: 'Order' }]
+    
 }, {
     timestamps: true
 });

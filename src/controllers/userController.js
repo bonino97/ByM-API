@@ -8,7 +8,6 @@ const getAllUsers = async (req, res) => {
     logging.info(NAMESPACE, 'GetAllUsers Method');
     try {
         const users = await User.find();
-
         if (users.length === 0) return sendResponse(res, 404, 'No users found');
 
         return sendResponse(res, 200, 'Users retrieved successfully', { users });
@@ -32,13 +31,23 @@ const getUserById = async (req, res) => {
         return sendResponse(res, 500, '', error);
     }
 };
-
 const createUser = async (req, res) => {
     logging.info(NAMESPACE, 'CreateUser Method');
+    const { firstName, lastName } = req.body;
+    
     try {
+        // VERIFICAR SI EL USUARIO YA EXISTE POR NOMBRE Y APELLIDOS
+        const verificarUser = await User.findOne({ firstName, lastName });
+
+        if (verificarUser) {
+            console.log('El usuario ya existe');
+            return sendResponse(res, 400, 'El usuario ya existe');
+        }
+
+        // SI EL USUARIO NO EXISTE, CREARLO
         const newUser = new User(req.body);
         await newUser.save();
-        return sendResponse(res, 201, 'User created successfully', { newUser });
+        return sendResponse(res, 201, 'Usuario creado exitosamente', { newUser });
     } catch (error) {
         logging.error(NAMESPACE, 'CreateUser Method', error);
         return sendResponse(res, 500, '', error);

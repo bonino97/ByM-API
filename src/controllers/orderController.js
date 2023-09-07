@@ -1,6 +1,8 @@
 const logging = require('../utils/logging');
 const { sendResponse } = require('../utils/response');
 const Order = require('../models/Order');
+const Check = require('../models/Check');
+const { find } = require('../models/Service');
 
 const NAMESPACE = 'Order Controller';
 
@@ -38,9 +40,35 @@ const getOrderById = async (req, res) => {
 const createOrder = async (req, res) => {
     logging.info(NAMESPACE, 'CreateOrder Method');
     try {
-        const newOrder = new Order(req.body);
+        const receivedOrder = req.body;
+
+        const newOrder = new Order(receivedOrder);
+
+        if (!newOrder) return sendResponse(res, 400, 'An error ocurred.');
+
+        if (newOrder.paymentType === 'CHECK') {
+            const { checkNumber, bank, amount, drawer, deliveredBy, expiredDate } = req.body;
+            const newCheck =  new Check({
+                checkNumber,
+                bank,
+                amount,
+                drawer,
+                deliveredBy,
+                expiredDate
+            });
+            // VERIFICAR SI EL CHEQUE YA EXISTE
+            const findByCheckNumber = async (checkNumber) => {
+                find({checkNumber: checkNumber})
+            }
+            const verifyCheck = await findByCheckNumber(checkNumber);
+            if(verifyCheck) return sendResponse(res, 400, 'El cheque ya existe');
+            await newCheck.save()
+            sendResponse(res, 201, 'Check created sucessfully', {check: newCheck})
+        }
+        
         await newOrder.save();
-        return sendResponse(res, 201, 'Order created successfully', { newOrder });
+
+        return sendResponse(res, 201, 'Order created successfully', { order: newOrder });
     } catch (error) {
         logging.error(NAMESPACE, 'CreateOrder Method', error);
         return sendResponse(res, 500, '', error);

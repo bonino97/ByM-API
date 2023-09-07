@@ -31,17 +31,32 @@ const getProductById = async (req, res) => {
     }
 };
 
+
 const createProduct = async (req, res) => {
-    logging.info(NAMESPACE, 'CreateProduct Method');
-    try {
-        const newProduct = new Product(req.body);
-        await newProduct.save();
-        return sendResponse(res, 201, 'Product created successfully', { newProduct });
-    } catch (error) {
-        logging.error(NAMESPACE, 'CreateProduct Method', error);
-        return sendResponse(res, 500, '', error);
+  logging.info(NAMESPACE, 'CreateProduct Method');
+
+  try {
+    const { name } = req.body;
+
+    // Verificar si el producto ya existe por nombre
+    const existingProduct = await Product.findOne({ name });
+
+    if (existingProduct) {
+      // Si el producto ya existe, devuelve una respuesta de conflicto (código 409)
+      return sendResponse(res, 409, 'Product already exists with the same name');
     }
+
+    // Si el producto no existe, crea un nuevo producto
+    const newProduct = new Product(req.body);
+
+    await newProduct.save();
+    return sendResponse(res, 201, 'Product created successfully', { newProduct });
+  } catch (error) {
+    logging.error(NAMESPACE, 'CreateProduct Method', error);
+    return sendResponse(res, 500, 'Internal Server Error', error);
+  }
 };
+
 
 const updateProduct = async (req, res) => {
     logging.info(NAMESPACE, 'UpdateProduct Method');

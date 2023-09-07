@@ -1,6 +1,7 @@
 const logging = require('../utils/logging');
 const { sendResponse } = require('../utils/response');
 const Category = require('../models/Category');
+const { findOne } = require('../models/Service');
 
 const NAMESPACE = 'Category Controller';
 
@@ -35,8 +36,14 @@ const createCategory = async (req, res) => {
     logging.info(NAMESPACE, 'CreateCategory Method');
     try {
         const newCategory = new Category(req.body);
-        await newCategory.save();
-        return sendResponse(res, 201, 'Category created successfully', { newCategory });
+        // VERIFICAR SI LA CATEGORIA YA EXISTE POR NOMBRE
+        const verifyCategory = await findOne({ name: newCategory.name });
+        if(verifyCategory) {
+            return sendResponse(res, 400, 'Category is already registered');
+        }else{
+            await newCategory.save();
+            return sendResponse(res, 201, 'Category created successfully', { newCategory });
+        }
     } catch (error) {
         logging.error(NAMESPACE, 'CreateCategory Method', error);
         return sendResponse(res, 500, '', error);

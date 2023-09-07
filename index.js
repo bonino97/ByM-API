@@ -10,6 +10,7 @@ const OrderRoutes = require('./src/routes/orderRoutes');
 const SupplierRoutes = require('./src/routes/supplierRoutes');
 const CategoryRoutes = require('./src/routes/categoryRoutes');
 const ProductRoutes = require('./src/routes/productRoutes');
+const ServiceRoute = require('./src/routes/serviceRoutes.js');
 
 // Initialize environment variables
 dotenv.config();
@@ -41,6 +42,7 @@ app.use('/api/suppliers', SupplierRoutes);
 app.use('/api/orders', OrderRoutes);
 app.use('/api/categories', CategoryRoutes);
 app.use('/api/products', ProductRoutes);
+app.use('/api/services', ServiceRoute)
 // app.use('/api/images', ImageRoutes);
 
 

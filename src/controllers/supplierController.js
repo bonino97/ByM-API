@@ -38,6 +38,8 @@ const createSupplier = async (req, res) => {
     logging.info(NAMESPACE, 'CreateSupplier Method');
     try {
         const newSupplier = new Supplier(req.body);
+        const verifySupplier = await Supplier.findOne({ name: newSupplier.name });
+        if (verifySupplier) return sendResponse(res, 400, 'Supplier already exists');
         await newSupplier.save();
         return sendResponse(res, 201, 'Supplier created successfully', { newSupplier });
     } catch (error) {
