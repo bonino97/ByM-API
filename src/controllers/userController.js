@@ -38,12 +38,10 @@ const createUser = async (req, res) => {
     try {
         // VERIFICAR SI EL USUARIO YA EXISTE POR NOMBRE Y APELLIDOS
         const verificarUser = await User.findOne({ firstName, lastName });
-
         if (verificarUser) {
             console.log('El usuario ya existe');
             return sendResponse(res, 400, 'El usuario ya existe');
         }
-
         // SI EL USUARIO NO EXISTE, CREARLO
         const newUser = new User(req.body);
         await newUser.save();

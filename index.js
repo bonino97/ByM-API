@@ -11,7 +11,7 @@ const SupplierRoutes = require('./src/routes/supplierRoutes');
 const CategoryRoutes = require('./src/routes/categoryRoutes');
 const ProductRoutes = require('./src/routes/productRoutes');
 const ServiceRoute = require('./src/routes/serviceRoutes.js');
-
+const ClientsRoutes = require('./src/routes/clientsRoutes.js');
 // Initialize environment variables
 dotenv.config();
 
@@ -43,7 +43,10 @@ app.use('/api/orders', OrderRoutes);
 app.use('/api/categories', CategoryRoutes);
 app.use('/api/products', ProductRoutes);
 app.use('/api/services', ServiceRoute)
+app.use('/api/clients', ClientsRoutes);
 // app.use('/api/images', ImageRoutes);
+// ROUTE DE CLIENTES USA EL MISMO CONTROLADOR QUE EL DE USUARIOS?
+// app.use('/api/clients', ClientRoutes);]
 
 
 // Error Handling
