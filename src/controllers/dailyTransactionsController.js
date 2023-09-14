@@ -1,36 +1,36 @@
 const logging = require("../utils/logging");
 const {sendResponse} = require('../utils/response');
-const Transaction = require('../models/DayliTransactions');
+const Transaction = require('../models/DailyTransactions');
 
 const NAMESPACE = 'DailyTransactions Controller';
 
 const getAllTransactions = async (req, res) => {
-    logging.info(NAMESPACE, 'GetAllClients Method');
+    logging.info(NAMESPACE, 'GetAllTransactions Method');
     try {
-        const transaction = await Transa.find();
+        const transaction = await Transaction.find();
         if (transaction.length === 0) return sendResponse(res, 404, 'No transactions found');
         return sendResponse(res, 200, 'transactions retrieved successfully', {transaction});
     } catch(error){
-        logging.error(NAMESPACE, 'GetAllClients Method', error);
+        logging.error(NAMESPACE, 'GetAllTransactions Method', error);
         return sendResponse(res, 500, '', error);
     }
 };
 
 const getTransactionById = async (req, res) => {
-    logging.info(NAMESPACE, 'GetClientById Method');
+    logging.info(NAMESPACE, 'getTransactionById Method');
     try {
         const transactionId = req.params.id;
         const transaction = await Transaction.findById(transactionId);
         if (!transaction) return sendResponse(res, 404, 'transaction not found');
         return sendResponse(res, 200, 'transaction retrieved successfully', {transaction});
     } catch(error){
-        logging.error(NAMESPACE, 'GetClientById Method', error);
+        logging.error(NAMESPACE, ' getTransactionById Method', error);
         return sendResponse(res, 500, '', error);
     }
 }
 
 const createTransaction = async (req, res) => {
-    logging.info(NAMESPACE, 'CreateClient Method');
+    logging.info(NAMESPACE, 'CreateTransaction Method');
     try {
         const receivedTransaction = req.body;
         const newTransaction = new Transaction(receivedTransaction);
@@ -38,13 +38,13 @@ const createTransaction = async (req, res) => {
         const transaction = await newTransaction.save();
         return sendResponse(res, 201, 'transaction created successfully', {transaction});
     } catch(error){
-        logging.error(NAMESPACE, 'CreateClient Method', error);
+        logging.error(NAMESPACE, 'CreateTransaction Method', error);
         return sendResponse(res, 500, '', error);
     }
 }
 
 const updateTransaction = async (req, res) => {
-    logging.info(NAMESPACE, 'UpdateClient Method');
+    logging.info(NAMESPACE, 'UpdateTransaction Method');
     try {
         const transactionId = req.params.id;
         const receivedTransaction = req.body;
@@ -52,20 +52,20 @@ const updateTransaction = async (req, res) => {
         if (!transaction) return sendResponse(res, 404, 'transaction not found');
         return sendResponse(res, 200, 'transaction updated successfully', {transaction});
     } catch(error){
-        logging.error(NAMESPACE, 'UpdateClient Method', error);
+        logging.error(NAMESPACE, 'UpdateTransaction Method', error);
         return sendResponse(res, 500, '', error);
     }
 }
 
 const deleteTransaction = async (req, res) => {
-    logging.info(NAMESPACE, 'DeleteClient Method');
+    logging.info(NAMESPACE, 'DeleteTransaction Method');
     try {
         const transactionId = req.params.id;
         const transaction = await Transaction.findByIdAndDelete(transactionId);
         if (!transaction) return sendResponse(res, 404, 'transaction not found');
         return sendResponse(res, 200, 'transaction deleted successfully', {transaction});
     } catch(error){
-        logging.error(NAMESPACE, 'DeleteClient Method', error);
+        logging.error(NAMESPACE, 'DeleteTransaction Method', error);
         return sendResponse(res, 500, '', error);
     }
 }

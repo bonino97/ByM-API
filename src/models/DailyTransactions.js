@@ -13,7 +13,7 @@ const DailyTransactionsSchema = new Schema({
     },
     status: {
         type: String,
-        enum: ['APPROVED', 'PENDING', 'REJECTED']
+        enum: ['PAID', 'DEBITED']
     },
     paymentType: {
         type: String,
@@ -30,4 +30,4 @@ const DailyTransactionsSchema = new Schema({
     timestamps: true
 });
 
-module.exports = mongoose.model('DayliTransactions', DailyTransactionsSchema);
+module.exports = mongoose.model('DailyTransactions', DailyTransactionsSchema);
