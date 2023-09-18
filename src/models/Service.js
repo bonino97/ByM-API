@@ -23,17 +23,17 @@ const serviceSchema = new Schema({
     motorOil: {
         changed:Boolean,
         density: String,
-        // type: String,
+        OilType: String,
     },
     gearboxOil: {
         changed:Boolean,
         reviewed: Boolean,
-        // type: String,
+        OilType: String,
     },
     steeringOil: {
         changed:Boolean,
         reviewed: Boolean,
-        // type: String,
+        OilType: String,
     },
     others: String,
     nextService: String,

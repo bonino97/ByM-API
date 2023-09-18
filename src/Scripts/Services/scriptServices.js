@@ -26,32 +26,32 @@ function convertToServiceData(xlsRow) {
         patent: String(xlsRow["CODCLI,C,7"]),
         km: String(xlsRow["KM,C,10"]),
         oilFilter: {
-            changed: xlsRow["FACT,C,1"] === 'C' ? true : false,
-            type: xlsRow["FILTROAC,C,30"] || null,
+            changed: xlsRow['FACT,C,1'] === 'C' ? true : false,
+            // type: xlsRow['FILTROAC,C,30'] || null,
         },
         airFilter: {
             changed: xlsRow['FAIT,C,1'] === 'C' ? true : false,
             reviewed: xlsRow['FAIT,C,1'] === 'R' ? true : false,
-            type: xlsRow['FILTROAI,C,30'] || null,
+            // type: xlsRow['FILTROAI,C,30'] || null,
         },
         fuelFilter: {
             changed: xlsRow['FCT,C,1'] === 'C' ? true : false,
-            type: xlsRow['FILTROCO,C,30'] || null,
+            // type: xlsRow['FILTROCO,C,30'] || null,
         },
         motorOil: {
             changed: xlsRow['AMT,C,1'] === 'C' ? true : false,
-            density: xlsRow['TIPOAM,C,30'] || null,
-            type: xlsRow['ACEITEM,C,30'] || null,
+            // density: xlsRow['TIPOAM,C,30'] || null,
+            OilType: xlsRow['ACEITEM,C,30'] || null,
         },
         gearboxOil: {
             changed: xlsRow['ACT,C,1'] === 'C' ? true : false,
             reviewed: xlsRow['ACT,C,1'] === 'R' ? true : false,
-            type: xlsRow['ACEITEC,C,30'] || null,
+            OilType: xlsRow['ACEITEC,C,30'] || null,
         },
         steeringOil: {
             changed: xlsRow['ADT,C,1'] === 'C' ? true : false,
             reviewed: xlsRow['ADT,C,1'] === 'R' ? true : false,
-            type: xlsRow['ACEITED,C,30'] || null,
+            OilType: xlsRow['ACEITED,C,30'] || null,
         },
     };
 
