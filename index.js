@@ -46,6 +46,7 @@ app.use('/api/products', ProductRoutes);
 app.use('/api/services', ServiceRoute)
 app.use('/api/clients', ClientsRoutes);
 app.use('/api/transactions', DailyTransactionsRoutes);
+
 // app.use('/api/images', ImageRoutes);
 // ROUTE DE CLIENTES USA EL MISMO CONTROLADOR QUE EL DE USUARIOS?
 // app.use('/api/clients', ClientRoutes);]

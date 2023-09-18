@@ -5,12 +5,38 @@ const serviceSchema = new Schema({
     model: String,
     seller: {type: Schema.Types.ObjectId, ref: 'User'},
     patent: String,
-    address: String,
-    oilFilter:String,
-    airFilter:String,
-    fuelFilter: String,
-    oilType: String,
-    orders: [{ type: Schema.Types.ObjectId, ref: 'Order' }]
+    owner: String,
+    km: String,
+    oilFilter:{
+        changed: Boolean,
+        // type: String,
+    },
+    airFilter: {
+        changed: Boolean,
+        reviewed: Boolean,
+        // type: String,
+    },
+    fuelFilter: {
+        changed: Boolean,
+        // type: String,
+    },
+    motorOil: {
+        changed:Boolean,
+        density: String,
+        // type: String,
+    },
+    gearboxOil: {
+        changed:Boolean,
+        reviewed: Boolean,
+        // type: String,
+    },
+    steeringOil: {
+        changed:Boolean,
+        reviewed: Boolean,
+        // type: String,
+    },
+    others: String,
+    nextService: String,
     
 }, {
     timestamps: true

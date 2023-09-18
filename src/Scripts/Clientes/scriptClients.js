@@ -1,9 +1,6 @@
-
-
-
 const mongoose = require('mongoose');
 const XLSX = require('xlsx');
-const Client = require('../models/Client'); // Asegúrate de que la ruta sea correcta
+const Client = require('../../models/Client'); // Asegúrate de que la ruta sea correcta
 
 // Conecta a la base de datos MongoDB
 
