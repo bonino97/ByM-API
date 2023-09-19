@@ -1,24 +1,20 @@
 const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
+
 const serviceSchema = new Schema({
-    model: String,
-    seller: {type: Schema.Types.ObjectId, ref: 'User'},
     patent: String,
-    owner: String,
     km: String,
+    seller: {type: Schema.Types.ObjectId, ref: 'User'},
     oilFilter:{
         changed: Boolean,
-        // type: String,
     },
     airFilter: {
         changed: Boolean,
         reviewed: Boolean,
-        // type: String,
     },
     fuelFilter: {
         changed: Boolean,
-        // type: String,
     },
     motorOil: {
         changed:Boolean,
@@ -36,10 +32,14 @@ const serviceSchema = new Schema({
         OilType: String,
     },
     others: String,
-    nextService: String,
-    
+    nextService: {
+        byKm: Number,
+    },
+    Date: Date,
 }, {
     timestamps: true
 });
+
+// Calcula byKm después de definir km
 
 module.exports = mongoose.model('Service', serviceSchema);
