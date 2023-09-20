@@ -20,23 +20,23 @@ const worksheet = workbook.Sheets[workbook.SheetNames[0]]; // Suponemos que el a
 const sheetData = xlsx.utils.sheet_to_json(worksheet);
 
 // Función para convertir el formato de datos del archivo .xls al formato de tu modelo
-function convertToServiceData(xlsRow) {
+    function convertToServiceData(xlsRow) {
 
-    const serviceData = {
-        associatedVehicle: {
-            patent: xlsRow['CODCLI,C,7'],
-            brand: xlsRow['MARCA,C,30'],
-            model: xlsRow['MODELO,C,30'],
-            year: xlsRow["ANIO,C,4"]
-        },
-        owner:{
-            ownerName: xlsRow['NOMCLI,C,30'],
-            ownerPhone: xlsRow['CELCLI,C,15'],
-            ownerEmail: xlsRow['MAICLI,C,50'],
-            ownerAddress: xlsRow['DIRCLI,C,30'],
-            ownerCity: xlsRow['LOCCLI,C,30'],
-        },
-    };
+        const serviceData = {
+            associatedVehicle: {
+                patent: xlsRow['CODCLI,C,7'],
+                brand: xlsRow['MARCA,C,30'],
+                model: xlsRow['MODELO,C,30'],
+                year: xlsRow["ANIO,C,4"]
+            },
+            owner:{
+                ownerName: xlsRow['NOMCLI,C,30'],
+                ownerPhone: xlsRow['CELCLI,C,15'],
+                ownerEmail: xlsRow['MAICLI,C,50'],
+                ownerAddress: xlsRow['DIRCLI,C,30'],
+                ownerCity: xlsRow['LOCCLI,C,30'],
+            },
+        };
 
     // Convierte todos los valores de serviceData a cadenas de texto o nulos
     for (const key in serviceData) {
