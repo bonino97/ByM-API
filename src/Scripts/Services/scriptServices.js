@@ -10,7 +10,7 @@ mongoose.connect('mongodb+srv://bautistabadino9:bautibad@cluster0.dxntcy4.mongod
 });
 
 mongoose.connection.on('connected', async () => {
-    console.log('Conexión a MongoDB establecida con éxito');
+console.log('Conexión a MongoDB establecida con éxito');
 const db = mongoose.connection;
 
 // Carga el archivo .xls
@@ -71,11 +71,6 @@ function convertToServiceData(xlsRow) {
 
     return serviceData;
 }
-
-
-
-// ...
-
 // Itera sobre los datos del archivo .xls y crea documentos de Service en la base de datos
 const importData = async () => {
     for (const xlsRow of sheetData) {

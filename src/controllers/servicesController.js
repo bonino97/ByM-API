@@ -2,7 +2,7 @@ const logging = require('../utils/logging');
 const { sendResponse } = require('../utils/response');
 const Service = require('../models/Service');
 const ServiceOwner = require('../models/ServiceOwner');
-
+const mongoose = require('mongoose');
 const NAMESPACE = 'Service Controller';
 
 const createServiceWithOwnerAndVehicle = async (req, res) => {
@@ -12,7 +12,22 @@ const createServiceWithOwnerAndVehicle = async (req, res) => {
     const ownerData = req.body.ownerData; 
 
     // Crear un nuevo propietario con los datos proporcionados
-    const owner = new ServiceOwner(ownerData);
+    const owner = new ServiceOwner({
+      _id: new mongoose.Types.ObjectId(),
+      associatedVehicle: {
+        patent: ownerData.associatedVehicle.patent,
+        brand: ownerData.associatedVehicle.brand,
+        model: ownerData.associatedVehicle.model,
+        year: ownerData.associatedVehicle.year,
+      },
+      owner: {
+        ownerName: ownerData.owner.ownerName,
+        ownerPhone: ownerData.owner.ownerPhone,
+        ownerEmail: ownerData.owner.ownerEmail,
+        ownerAddress: ownerData.owner.ownerAddress,
+        ownerCity: ownerData.owner.ownerCity,
+      },
+    });
     await owner.save();
 
     // Crear un nuevo servicio con los datos proporcionados
@@ -20,8 +35,32 @@ const createServiceWithOwnerAndVehicle = async (req, res) => {
       patent: serviceData.patent,
       km: serviceData.km,
       seller: serviceData.seller,
-      oilFilter: serviceData.oilFilter,
-      // Agregar otros campos del servicio según sea necesario
+      oilFilter: {
+        changed: serviceData.oilFilter.changed,
+      },
+      airFilter: {
+        changed: serviceData.airFilter.changed,
+        reviewed: serviceData.airFilter.reviewed,
+      },
+      fuelFilter: {
+        changed: serviceData.fuelFilter.changed,
+      },
+      motorOil: {
+        changed: serviceData.motorOil.changed,
+        density: serviceData.motorOil.density,
+        OilType: serviceData.motorOil.OilType,
+      },
+      gearboxOil: {
+        changed: serviceData.gearboxOil.changed,
+        reviewed: serviceData.gearboxOil.reviewed,
+        OilType: serviceData.gearboxOil.OilType,
+      },
+      steeringOil: {
+        changed: serviceData.steeringOil.changed,
+        reviewed: serviceData.steeringOil.reviewed,
+        OilType: serviceData.steeringOil.OilType,
+      },
+      others: serviceData.others,
     });
 
     // Asignar la patente del vehículo al servicio
@@ -31,17 +70,17 @@ const createServiceWithOwnerAndVehicle = async (req, res) => {
     await service.save();
 
     // Obtener el servicio con propietario y vehículo asociado utilizando populate
-    const serviceWithOwnerAndVehicle = await Service.findById(service._id)
-      .populate({
-        path: 'patent',
-        model: 'ServiceOwner',
-        populate: {
-          path: 'associatedVehicle',
-          model: 'ServiceOwner',
-        },
-      });
+    // const serviceWithOwnerAndVehicle = await Service.findById(service._id)
+    //   .populate({
+    //     path: 'patent',
+    //     model: 'ServiceOwner',
+    //     populate: {
+    //       path: 'associatedVehicle',
+    //       model: 'ServiceOwner',
+    //     },
+    //   });
 
-    return sendResponse(res, 201, 'Service created successfully', { service: serviceWithOwnerAndVehicle });
+    return sendResponse(res, 201, 'Service created successfully', { service: service, owner: owner });
   } catch (error) {
     console.error('Error in createServiceWithOwnerAndVehicle:', error);
     return sendResponse(res, 500, '', error);

@@ -5,6 +5,7 @@ const { Schema } = mongoose;
 const serviceSchema = new Schema({
     patent: String,
     km: String,
+    Date: Date,
     seller: {type: Schema.Types.ObjectId, ref: 'User'},
     oilFilter:{
         changed: Boolean,
@@ -35,7 +36,6 @@ const serviceSchema = new Schema({
     nextService: {
         byKm: Number,
     },
-    Date: Date,
 }, {
     timestamps: true
 });

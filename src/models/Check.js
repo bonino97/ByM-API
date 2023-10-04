@@ -8,6 +8,12 @@ const chequeSchema = new Schema({
   drawer: String, //librador
   deliveredBy: String, //entregado
   expiredDate: Date, //vencimiento
+  cuit: String,
+  status: {
+    type: String,
+    enum: ['PENDING', 'DELIVERED', 'COLLECTED', 'DEPOSITED'],
+  },
+  bankPlace: String, //plaza de cuenta
 },{
   timestamps: true
 }

@@ -13,6 +13,7 @@ const ProductRoutes = require('./src/routes/productRoutes');
 const ServiceRoute = require('./src/routes/serviceRoutes.js');
 const ClientsRoutes = require('./src/routes/clientsRoutes.js');
 const DailyTransactionsRoutes = require('./src/routes/dailyTransactionsRoute.js');
+const CheckRoutes = require('./src/routes/checkRoutes.js');
 // Initialize environment variables
 dotenv.config();
 
@@ -46,7 +47,7 @@ app.use('/api/products', ProductRoutes);
 app.use('/api/services', ServiceRoute)
 app.use('/api/clients', ClientsRoutes);
 app.use('/api/transactions', DailyTransactionsRoutes);
-
+app.use('/api/checks', CheckRoutes);
 // app.use('/api/images', ImageRoutes);
 // ROUTE DE CLIENTES USA EL MISMO CONTROLADOR QUE EL DE USUARIOS?
 // app.use('/api/clients', ClientRoutes);]
