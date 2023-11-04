@@ -9,6 +9,11 @@ const chequeSchema = new Schema({
   deliveredBy: String, //entregado
   expiredDate: Date, //vencimiento
   cuit: String,
+  employee: {
+    type: Schema.Types.ObjectId,
+    ref: 'User',
+  },
+
   status: {
     type: String,
     enum: ['PENDING', 'DELIVERED', 'COLLECTED', 'DEPOSITED'],
