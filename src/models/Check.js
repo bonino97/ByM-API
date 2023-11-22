@@ -9,6 +9,7 @@ const chequeSchema = new Schema({
   deliveredBy: String, //entregado
   expiredDate: Date, //vencimiento
   cuit: String,
+  deliveredTo: String, //entregado a
   employee: {
     type: Schema.Types.ObjectId,
     ref: 'User',

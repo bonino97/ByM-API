@@ -7,10 +7,9 @@ const productSchema = new Schema({
     description: String,
     stock: Number,
     images: [String],
-    
     supplier: { type: Schema.Types.ObjectId, ref: 'Supplier' },
     category: { type: Schema.Types.ObjectId, ref: 'Category' },
-
+    createdBy: { type: Schema.Types.ObjectId, ref: 'User' },
     updatedBy: { type: Schema.Types.ObjectId, ref: 'User' },
 }, {
     timestamps: true
