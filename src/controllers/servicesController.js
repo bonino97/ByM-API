@@ -10,22 +10,23 @@ const createServiceWithOwnerAndVehicle = async (req, res) => {
     // Obtener los datos del servicio del cuerpo de la solicitud
     const serviceData = req.body.serviceData; 
     const ownerData = req.body.ownerData; 
-
+    const {patent, brand, model, year} = ownerData.associatedVehicle;
+    const {ownerName, ownerPhone, ownerEmail, ownerAddress, ownerCity} = ownerData.owner;
     // Crear un nuevo propietario con los datos proporcionados
     const owner = new ServiceOwner({
       _id: new mongoose.Types.ObjectId(),
       associatedVehicle: {
-        patent: ownerData.associatedVehicle.patent,
-        brand: ownerData.associatedVehicle.brand,
-        model: ownerData.associatedVehicle.model,
-        year: ownerData.associatedVehicle.year,
+        patent: patent,
+        brand: brand,
+        model: model,
+        year: year,
       },
       owner: {
-        ownerName: ownerData.owner.ownerName,
-        ownerPhone: ownerData.owner.ownerPhone,
-        ownerEmail: ownerData.owner.ownerEmail,
-        ownerAddress: ownerData.owner.ownerAddress,
-        ownerCity: ownerData.owner.ownerCity,
+        ownerName: ownerName,
+        ownerPhone: ownerPhone,
+        ownerEmail: ownerEmail,
+        ownerAddress: ownerAddress,
+        ownerCity: ownerCity,
       },
     });
     await owner.save();

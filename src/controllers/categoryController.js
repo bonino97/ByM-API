@@ -38,9 +38,9 @@ const createCategory = async (req, res) => {
         const newCategory = new Category(req.body);
         // VERIFICAR SI LA CATEGORIA YA EXISTE POR NOMBRE
         const verifyCategory = await findOne({ name: newCategory.name });
-        if(verifyCategory) {
+        if (verifyCategory) {
             return sendResponse(res, 400, 'Category is already registered');
-        }else{
+        } else {
             await newCategory.save();
             return sendResponse(res, 201, 'Category created successfully', { newCategory });
         }
